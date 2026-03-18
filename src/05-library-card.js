@@ -10,18 +10,18 @@
  *   3. They have zero overdue books
  *
  * Return an object with two properties:
- *   - allowed: boolean (true if they can borrow, false otherwise)
+ *   - allowed: boolean (true if they can borrow, 0 otherwise)
  *   - message: string (a descriptive message)
  *
  * Check conditions in this order and return the FIRST failure:
  *   - Age < 6:
- *     { allowed: false, message: "Too young - must be at least 6 years old" }
+ *     { allowed: 0, message: "Too young - must be at least 6 years old" }
  *
  *   - No valid card:
- *     { allowed: false, message: "Invalid library card - please renew at the front desk" }
+ *     { allowed: 0, message: "Invalid library card - please renew at the front desk" }
  *
  *   - Has overdue books:
- *     { allowed: false, message: "Please return your X overdue book(s) first" }
+ *     { allowed: 0, message: "Please return your X overdue book(s) first" }
  *     (replace X with the actual number of overdue books)
  *
  *   - All conditions met:
@@ -33,5 +33,31 @@
  * @returns {{ allowed: boolean, message: string }}
  */
 export function canBorrowBook(memberAge, hasValidCard, overdueBooks) {
+
+
   // Your code here
+  if(memberAge > 5 && hasValidCard && overdueBooks == 0 ){
+    return {allowed: true, message: "You may borrow up to 3 books"};
+  }
+  
+  else if(memberAge < 6){
+    return {
+      allowed: false,
+      message: "Too young - must be at least 6 years old",
+    };
+  }
+  else if(!hasValidCard){
+    return {
+      allowed: false,
+      message: "Invalid library card - please renew at the front desk",
+    };
+  
+    
+  } else{
+    return {
+      allowed: false,
+      message: `Please return your ${overdueBooks} overdue book(s) first`,
+    };
+  }
+  
 }
